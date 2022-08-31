@@ -10,10 +10,14 @@ import './App.css';
 // 3. arendajad (server ei tööta) näevad ka
 
 function App() {
+  // <div> ----> division
+  // ümbritseja
+  // return () sulgude sees peab olema 1 komplekt elemente
   return (
     <div className="App">
       <img className="pilt" alt="Nobe pilt auto" src="https://estonia.ee/wp-content/uploads/nobe_netist_4.jpg" />
       <button className="nupp">Vajuta mind</button>
+      <div>Ksadasdas</div>
     </div>
   );
 }

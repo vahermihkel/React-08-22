@@ -1,0 +1,36 @@
+/* 
+height - kõrgus, width - laius
+margin - eemale tõukamine
+px - piksel 
+% - lehest (ekraanist) protsent
+*/
+
+.main-picture {
+  height: 200px;
+  width: 50%;
+  margin-left: 25%;
+  border-radius: 10px;
+}
+
+.navigation-pictures {
+  /* vasakult paremale */
+  display: flex;
+  /* ruumi jaotus võrdseteks osadeks */
+  justify-content: space-evenly;
+  margin-top: 50px;
+}
+
+/* kui panen tühiku, siis ta 
+annab CSSi temast seespool 
+olevale elemendile */
+.navigation-pictures img {
+  height: 150px;
+  width: 250px;
+  cursor: pointer;
+}
+
+.navigation-pictures img:hover {
+  scale: 1.1;
+  transition: 0.5s;
+  box-shadow: 0 8px 100px 0px;
+}
