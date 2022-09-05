@@ -1,4 +1,9 @@
+import { Link, Route, Routes } from 'react-router-dom';
 import './App.css';
+import Avaleht from './pages/Avaleht';
+import LisaToode from './pages/LisaToode';
+import Meist from './pages/Meist';
+import Ostukorv from './pages/Ostukorv';
 
 // ctrl + ä on kommentaaride lisamiseks
 // (saan edit -> toggle line comment)
@@ -17,7 +22,27 @@ function App() {
     <div className="App">
       <img className="pilt" alt="Nobe pilt auto" src="https://estonia.ee/wp-content/uploads/nobe_netist_4.jpg" />
       <button className="nupp">Vajuta mind</button>
-      <div>Ksadasdas</div>
+
+{/* localhost:3000 */}
+      <Link to="/">
+        <button>Avalehele</button>
+      </Link>
+      <Link to="/lisa-toode">
+        <button>Lisa toode</button>
+      </Link>
+      <Link to="/meist">
+        <button>Meist</button>
+      </Link>
+      <Link to="/ostukorv">
+        <button>Ostukorv</button>
+      </Link>
+      <Routes>
+        <Route path="" element={ <Avaleht /> } />
+        <Route path="lisa-toode" element={ <LisaToode /> } />
+        <Route path="meist" element={ <Meist /> } />
+        <Route path="ostukorv" element={ <Ostukorv /> } />
+      </Routes>
+
     </div>
   );
 }

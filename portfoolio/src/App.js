@@ -2,6 +2,7 @@
   // mis andis errori, et ta ei leia seda faili üles)
 import { Link, Route, Routes } from 'react-router-dom';
 import './App.css';
+import Courses from './pages/Courses';
 import Hobbies from './pages/Hobbies';
 import Work from './pages/Work';
 // ctrl + shift + p   <- avada menüü
@@ -36,7 +37,7 @@ function App() {
         <Routes>
           <Route path="work" element={ <Work /> } />
           <Route path="hobbies" element={ <Hobbies /> } />
-          <Route path="courses" element={ <div>Kursused</div> } />
+          <Route path="courses" element={ <Courses /> } />
         </Routes>
 
     </div>
