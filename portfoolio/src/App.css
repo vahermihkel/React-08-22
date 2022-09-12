@@ -1,10 +1,3 @@
-/* 
-height - kõrgus, width - laius
-margin - eemale tõukamine
-px - piksel 
-% - lehest (ekraanist) protsent
-*/
-
 .main-picture {
   height: 200px;
   width: 50%;
@@ -13,16 +6,11 @@ px - piksel
 }
 
 .navigation-pictures {
-  /* vasakult paremale */
   display: flex;
-  /* ruumi jaotus võrdseteks osadeks */
   justify-content: space-evenly;
   margin-top: 50px;
 }
 
-/* kui panen tühiku, siis ta 
-annab CSSi temast seespool 
-olevale elemendile */
 .navigation-pictures img {
   height: 150px;
   width: 250px;

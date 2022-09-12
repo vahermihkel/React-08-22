@@ -7,6 +7,11 @@ import { useState } from "react";
 
 // backspace - panen vasakule
 function Avaleht() {
+  // vasak pool läheb HTMLi (teha muutuv koht)
+      // paremal pool on funktsionaalsus, mille abil saan vasakut poolt muuta
+            // kui toimub muutmine, siis antakse läbi parema poole sulgude uus väärtus
+                  // useState sulgude sees on esmane väärtus lehele tulles
+                          // pärast refreshi või lehelt (URL-lt) ära minnes ja tagasi tulles
   const [kogus, uuendaKogus] = useState(6);
 
   const nulli = () => {
@@ -25,11 +30,15 @@ function Avaleht() {
 
   return ( 
     <div>
-      <button onClick={nulli}>Nulli tagasi</button>
+      { kogus > 0 && <button onClick={nulli}>Nulli tagasi</button> }
       <br />
       <button onClick={v2henda}>-</button>
       <span> {kogus} </span>
       <button onClick={suurenda}>+</button>
+
+      {/* <a href="https://www.instagram.com/kimkardashian/?hl=en">
+          Meie instagrami
+      </a> */}
     </div> );
 }
 

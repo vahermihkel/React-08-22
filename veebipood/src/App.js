@@ -4,6 +4,7 @@ import Avaleht from './pages/Avaleht';
 import LisaToode from './pages/LisaToode';
 import Meist from './pages/Meist';
 import Ostukorv from './pages/Ostukorv';
+import Seaded from './pages/Seaded';
 
 // ctrl + ä on kommentaaride lisamiseks
 // (saan edit -> toggle line comment)
@@ -36,11 +37,16 @@ function App() {
       <Link to="/ostukorv">
         <button>Ostukorv</button>
       </Link>
+      <Link to="/seaded">
+        <button>Seaded</button>
+      </Link>
+      {/* No routes matched location "/seade" */}
       <Routes>
         <Route path="" element={ <Avaleht /> } />
         <Route path="lisa-toode" element={ <LisaToode /> } />
         <Route path="meist" element={ <Meist /> } />
         <Route path="ostukorv" element={ <Ostukorv /> } />
+        <Route path="seaded" element={ <Seaded /> } />
       </Routes>
 
     </div>

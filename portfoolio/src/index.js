@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { BrowserRouter } from 'react-router-dom'; // <--- võtsin impordi
-// <- maha reportWebVitals import (kogub andmeid)
+import { BrowserRouter } from 'react-router-dom'; 
 
 // 1. npm i react-router-dom
 // 2. BrowserRouter võimaldab mul teha rakenduses navigeerimist
@@ -16,7 +15,4 @@ root.render(
   </React.StrictMode>
 );
 
-// <- maha reportWebVitals rida (kogub andmeid)
-
-// ctrl + c <--- rakendus kinni
-// npm start <--- rakendus uuesti käima
+// <- maha reportWebVitals rida

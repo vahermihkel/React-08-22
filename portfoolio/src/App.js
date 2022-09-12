@@ -1,17 +1,8 @@
-  // <------ kustutasin logo impordi (enne kustutasin logo.svg faili,
-  // mis andis errori, et ta ei leia seda faili üles)
 import { Link, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Courses from './pages/Courses';
 import Hobbies from './pages/Hobbies';
 import Work from './pages/Work';
-// ctrl + shift + p   <- avada menüü
-// Open User Settings (JSON)
-
-// tab <->    liigutab koodi paremale
-// shift + tab   liigutab koodi vasakule
-
-// div - komplektide jaoks
 
 function App() {
   return (
@@ -30,16 +21,12 @@ function App() {
           </Link>
         </div>
 
-{/* localhost:3000/work   ---> näitab   <div>Töö</div>
-    localhost:3000/hobbies   ---> näitab   <div>Hobi</div>
-    localhost:3000/courses   ---> näitab   <div>Kursused</div>
-  */}
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/7xzU9Qqdqww" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         <Routes>
           <Route path="work" element={ <Work /> } />
           <Route path="hobbies" element={ <Hobbies /> } />
           <Route path="courses" element={ <Courses /> } />
         </Routes>
-
     </div>
   );
 }
