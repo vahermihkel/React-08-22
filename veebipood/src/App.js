@@ -4,6 +4,7 @@ import Avaleht from './pages/Avaleht';
 import HaldaTooteid from './pages/HaldaTooteid';
 import LisaToode from './pages/LisaToode';
 import Meist from './pages/Meist';
+import MuudaToode from './pages/MuudaToode';
 import Ostukorv from './pages/Ostukorv';
 import Poed from './pages/Poed';
 import Seaded from './pages/Seaded';
@@ -57,6 +58,7 @@ function App() {
         <Route path="seaded" element={ <Seaded /> } />
         <Route path="poed" element={ <Poed /> } />
         <Route path="halda" element={ <HaldaTooteid /> } />
+        <Route path="muuda/:index" element={ <MuudaToode /> } />
       </Routes>
 
     </div>
