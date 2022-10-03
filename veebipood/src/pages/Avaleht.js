@@ -4,6 +4,7 @@
 // tab - panen paremale
 
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 // backspace - panen vasakule
 function Avaleht() {
@@ -56,9 +57,11 @@ function Avaleht() {
       <button onClick={suurenda}>+</button>
 
 {/* tooted.map is not a function  ---> mul EI OLE tegemist array-ga */}
-      {tooted.map(element => 
+      {tooted.map((element,index) => 
         <div key={element}>
-          <div>{element}</div>         {/*   Coca-cola */}
+          <Link to={"/toode/" + index}>
+            <div>{element}</div>         {/*   Coca-cola */}
+          </Link>
           <button onClick={() => lisaOstukorvi(element)}>Lisa ostukorvi</button>
         </div>)}
 
