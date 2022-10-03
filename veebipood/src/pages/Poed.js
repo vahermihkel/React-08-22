@@ -14,31 +14,14 @@ function Poed() {
   //                                    0           1           2           3           4          5
   const [poed, uuendaPoed] = useState(poedFailist);
   const poodRef = useRef();
+  const aegRef = useRef();
+  const aadressRef = useRef();
+  const kommentaaridRef = useRef();
 
   const sorteeri = () => {
     poed.sort(); // JavaScripti sissekirjutatud funktsionaalsus -> sorteeri A-Z
     uuendaPoed(poed.slice());  // mälukoha ära lõikamine - tekitab koopia
   }
-
-  // tumesinine - HTML-s on tag - <div>, <button>, <img> jne, JS-s definitsioonid: function, const, =>
-  // kollane - funktsioon ja tal on enamustel juhtudel sulud lõpus    .startsWith("+372")   .sort()
-  // tavaline sinine - meie tehtud const muutuja
-  // helesinine - HTMLs on tag-i atribuut, className="", alt="", onClick="", src="", 
-  //                          JS-s: muutujad, kus pole const ees
-  // punane/oranž - sõnaline väärtus
-  // valge - HTMLs väljakuvamine
-
-  // [] - kandilised sulud - array jaoks, useState loomise jaoks
-  // {} - koodiblokk JS-s, HTMLs JavaSripti tegemist
-  // () - funktsiooni sulud
-  // () => {} - funktsiooni loomine
-  // && - kui vasakul pool on tõsi, siis näita paremat
-  // || - kui vasakul pool on tühjus, siis võta parem
-  // === - vasak pool võrdub parema poolega
-  // ;   - rea lõpetamiseks (pole kohustuslik)
-  // ,   - array sees elementide eristamiseks
-  // .   - kutsun selle muutuja funktsionaalsuse välja 
-  // =   - annan muutujale väärtust
 
   const kustuta = (j2rjekorraNumber) => {
     poed.splice(j2rjekorraNumber,1);  // splice ---> kustutab, pean mainima mitmendat ja mitu tükki 
@@ -46,7 +29,13 @@ function Poed() {
   }
 
   const lisaPood = () => {
-    poed.push(poodRef.current.value);    // animals.push("cows")     animals.push("chicken", "cats", "dogs")
+    const uusPood = {
+      "nimetus": poodRef.current.value,
+      "aeg": aegRef.current.value,
+      "aadress": aadressRef.current.value,
+      "kommentaarid": kommentaaridRef.current.value
+  }
+    poed.push(uusPood);    // animals.push("cows")     animals.push("chicken", "cats", "dogs")
     uuendaPoed(poed.slice()); // .slice() -- teeb koopia EHK kustutab esialgse mälukoha
   }
   // function lisaPood() {
@@ -99,16 +88,24 @@ function Poed() {
 
       <label>Uus pood</label> <br />
       <input ref={poodRef} type="text" /> <br />
+      <label>Lahtiolekuaeg</label> <br />
+      <input ref={aegRef} type="text" /> <br />
+      <label>Aadress</label> <br />
+      <input ref={aadressRef} type="text" /> <br />
+      <label>Kommentaarid</label> <br />
+      <input ref={kommentaaridRef} type="text" /> <br />
       <button onClick={lisaPood}>Lisa uus pood</button> <br />
 
       {/* .map() on array-de kuvamiseks HTMLs, siis teen selle funktsionaalsuse, mis on sisus tsükkel
       tehakse noole paremat poolt nii mitu korda kui mitu komaga eristatud elementi mul on */}
-      <div>Sinu valitud pood: {valitudPood}</div>
+      <div>Sinu valitud pood: {valitudPood.nimetus}</div>
 
       <div>Poode on {poed.length} tk</div>
 
       {poed.map((pood,index) => 
-        <div key={pood}>{pood} 
+        <div key={index}>
+{/* Uncaught Error: Objects are not valid as a React child (found: object with keys {nimetus, aeg, aadress, kommentaarid}). If you meant to render a collection of children, use an array instead. */}
+          {pood.nimetus} {pood.aeg}
           <button onClick={() => kustuta(index)}>x</button>
           <button onClick={() => vaata(pood)}>Vaata</button>
         </div>)} 
@@ -133,3 +130,24 @@ function Poed() {
 // .map is not a function <---- see tähendab, et .map ees ei ole [] väärtust
 
 export default Poed;
+
+
+// tumesinine - HTML-s on tag - <div>, <button>, <img> jne, JS-s definitsioonid: function, const, =>
+  // kollane - funktsioon ja tal on enamustel juhtudel sulud lõpus    .startsWith("+372")   .sort()
+  // tavaline sinine - meie tehtud const muutuja
+  // helesinine - HTMLs on tag-i atribuut, className="", alt="", onClick="", src="", 
+  //                          JS-s: muutujad, kus pole const ees
+  // punane/oranž - sõnaline väärtus
+  // valge - HTMLs väljakuvamine
+
+  // [] - kandilised sulud - array jaoks, useState loomise jaoks
+  // {} - koodiblokk JS-s, HTMLs JavaSripti tegemist
+  // () - funktsiooni sulud
+  // () => {} - funktsiooni loomine
+  // && - kui vasakul pool on tõsi, siis näita paremat
+  // || - kui vasakul pool on tühjus, siis võta parem
+  // === - vasak pool võrdub parema poolega
+  // ;   - rea lõpetamiseks (pole kohustuslik)
+  // ,   - array sees elementide eristamiseks
+  // .   - kutsun selle muutuja funktsionaalsuse välja 
+  // =   - annan muutujale väärtust

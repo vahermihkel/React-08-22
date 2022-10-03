@@ -1,1 +1,20 @@
-["Mustamäe", "Õismäe", "Kristiine", "Lasnamäe", "Põhja-Tallinn", "Kesklinn"]
+[
+  {
+      "nimetus": "Kristiine",
+      "aeg": "9-22",
+      "aadress": "Tulika 7b",
+      "kommentaarid": "Objects are not valid as a React child (found: object with keys {nimetus, aeg, aadress, kommentaarid})"
+  },
+  {
+      "nimetus": "Mustamäe",
+      "aeg": "10-22",
+      "aadress": "Tammsaare tee 2",
+      "kommentaarid": "sdasd "
+  },
+  {
+      "nimetus": "Balti jaam",
+      "aeg": "11-00",
+      "aadress": "Niine 12",
+      "kommentaarid": ""
+  }
+]

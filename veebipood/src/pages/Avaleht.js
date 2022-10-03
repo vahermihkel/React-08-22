@@ -60,7 +60,7 @@ function Avaleht() {
       {tooted.map((element,index) => 
         <div key={element}>
           <Link to={"/toode/" + index}>
-            <div>{element}</div>         {/*   Coca-cola */}
+            <div>{element.nimi}</div>         {/*   Coca-cola */}
           </Link>
           <button onClick={() => lisaOstukorvi(element)}>Lisa ostukorvi</button>
         </div>)}
