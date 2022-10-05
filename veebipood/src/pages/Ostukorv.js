@@ -32,6 +32,16 @@ function Ostukorv() {
 // 4. PANEME UUELE ARRAY-le JUTUMÄRGID PEALE ---> JSON.stringify()
 // 5. pane tagasi localStorage-sse ---> localStorage.setItem("VÕTI", uusVäärtus)
 
+  const arvutaOstukorviKogusumma = () => {
+    let kogusumma = 0;
+    // [{nimi: "Hernes", hind: 6},{nimi: "Kohupiim", hind: 2}, {nimi: "Fanta", hind: 3}]
+    //      {nimi: "Hernes", hind: 6} =>   6  =  0  +  6
+    //      {nimi: "Kohupiim", hind: 2} =>   8  =  6  + 2
+    //      {nimi: "Fanta", hind: 3} =>  11    =   8  +  3
+    ostukorv.forEach(element => kogusumma = kogusumma + element.hind );
+    return kogusumma.toFixed(2); // HTMLi
+  }
+
   return ( 
     <div>
      { ostukorv.length > 0 && <div>Ostukorvis on {ostukorv.length} eset</div> }
@@ -39,9 +49,12 @@ function Ostukorv() {
      { ostukorv.length > 0 && <button onClick={tyhjenda}>Tühjenda</button> }
       {ostukorv.map((element,index) => 
         <div key={index}> 
-          <span>{element}</span>
+          <img src={element.pilt} alt="" />    
+          <div>{element.nimi}</div>      
+          <div>{element.hind} €</div>  
           <button onClick={() => kustuta(index)}>x</button> 
         </div>)}
+      <div>Kokku: {arvutaOstukorviKogusumma()} €</div>
     </div> );
 }
 

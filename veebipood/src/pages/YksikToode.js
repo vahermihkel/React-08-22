@@ -9,7 +9,12 @@ function YksikToode() {
 
   return ( 
     <div>
-      { n2idatavToode !== undefined && <div>{n2idatavToode}</div>}
+      { n2idatavToode !== undefined && 
+        <div>
+          <img src={n2idatavToode.pilt} alt="" />    
+          <div>{n2idatavToode.nimi}</div>      
+          <div>{n2idatavToode.hind} €</div>  
+        </div>}
       { n2idatavToode === undefined && <div>Valitud toodet ei leitud</div>}
     </div> );
 }

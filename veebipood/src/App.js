@@ -1,7 +1,8 @@
 import { Link, Route, Routes } from 'react-router-dom';
 import './App.css';
-import Avaleht from './pages/Avaleht';
+// import Avaleht from './pages/Avaleht';
 import HaldaTooteid from './pages/HaldaTooteid';
+import Koduleht from './pages/Koduleht';
 import LisaToode from './pages/LisaToode';
 import Meist from './pages/Meist';
 import MuudaToode from './pages/MuudaToode';
@@ -52,7 +53,7 @@ function App() {
       </Link>
       {/* No routes matched location "/seade" */}
       <Routes>
-        <Route path="" element={ <Avaleht /> } />
+        <Route path="" element={ <Koduleht /> } />
         <Route path="lisa-toode" element={ <LisaToode /> } />
         <Route path="meist" element={ <Meist /> } />
         <Route path="ostukorv" element={ <Ostukorv /> } />
