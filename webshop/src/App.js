@@ -12,6 +12,10 @@ import { useTranslation } from 'react-i18next';
 function App() {
   const { t, i18n } = useTranslation();
 
+  const changeLang = (newLang) => {
+    i18n.changeLanguage(newLang);
+  }
+
   return (
     <div>
         <Navbar bg="dark" variant="dark">
@@ -23,7 +27,9 @@ function App() {
               <Nav.Link as={Link} to="/kontakt">{t('nav.contact')}</Nav.Link>
               <Nav.Link as={Link} to="/ostukorv">{t('nav.cart')}</Nav.Link>
             </Nav>
-            <img src={require("./images/estonian.png")} alt="" />
+            <img className="lang" onClick={() => changeLang("en")} src={require("./images/english.png")} alt="" />
+            <img className="lang" onClick={() => changeLang("ee")} src={require("./images/estonian.png")} alt="" />
+            <img className="lang" onClick={() => changeLang("ru")} src={require("./images/russian.png")} alt="" />
           </Container>
         </Navbar>
 
