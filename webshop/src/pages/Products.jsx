@@ -13,8 +13,8 @@ import { useState } from "react";
 // [{},{}] 20tk  MIDA NÄITAN KASUTAJALE products
 
 function Products() {
-                            // 60tk/240tk/1tk - kuhu filtreeritakse ja mille seast lehekülgede kaupa liigutakse
-  const [categoryProducts, setCategoryProducts] = useState(productsFromFile);
+                            // 301tk/60tk/240tk/1tk - kuhu filtreeritakse ja mille seast lehekülgede kaupa liigutakse
+  const [categoryProducts, setCategoryProducts] = useState(productsFromFile.slice());
   const [products, setProducts] = useState(productsFromFile.slice(0,20)); // 20tk - mida välja näidatakse lehekülje kaupa
   // [{name: "Nobe", category: "car"}, {name: "BMW", category: "car"}, {name: "Tesla", category: "car"}]
   //                                {name: "Nobe", category: "car"} =>   .category ------> "car"
@@ -44,33 +44,39 @@ function Products() {
   }
 
   const sortAZ = () => {
-    products.sort((a,b) => a.name.localeCompare(b.name));
-    setProducts(products.slice());
+    categoryProducts.sort((a,b) => a.name.localeCompare(b.name));
+    setProducts(categoryProducts.slice(0,20));
+    setActivePage(1);
   }
 
   const sortZA = () => {
-    products.sort((a,b) => b.name.localeCompare(a.name));
-    setProducts(products.slice());
+    categoryProducts.sort((a,b) => b.name.localeCompare(a.name));
+    setProducts(categoryProducts.slice(0,20));
+    setActivePage(1);
   }
 
   const sortPriceAsc = () => {
-    products.sort((a,b) => a.price - b.price);
-    setProducts(products.slice());
+    categoryProducts.sort((a,b) => a.price - b.price);
+    setProducts(categoryProducts.slice(0,20));
+    setActivePage(1);
   }  // a.price
 
   const sortPriceDesc = () => {
-    products.sort((a,b) => b.price - a.price);
-    setProducts(products.slice());
+    categoryProducts.sort((a,b) => b.price - a.price);
+    setProducts(categoryProducts.slice(0,20));
+    setActivePage(1);
   }
 
   const sortIdAsc = () => {
-    products.sort((a,b) => a.id - b.id);
-    setProducts(products.slice());
+    categoryProducts.sort((a,b) => a.id - b.id);
+    setProducts(categoryProducts.slice(0,20));
+    setActivePage(1);
   }
 
   const sortIdDesc = () => {
-    products.sort((a,b) => b.id - a.id);
-    setProducts(products.slice());
+    categoryProducts.sort((a,b) => b.id - a.id);
+    setProducts(categoryProducts.slice(0,20));
+    setActivePage(1);
   }
 
   const showByCategory = (categoryClicked) => {
@@ -85,6 +91,27 @@ function Products() {
   const changeActivePage = (pageClicked) => {
     setActivePage(pageClicked);
     setProducts(categoryProducts.slice(pageClicked*20-20,pageClicked*20));
+  }
+
+  /* productClicked ---> {"id":7618,"image":"httpss-l225.webp","name":"Case For iPhone","price":5,"description":"Case For iPhone 14 13 12 11 Pro Max Clear Plating Shockproof Soft Silicone Cover","category":"luxury","active":true} */
+  const addToCart = (productClicked) => {
+    let cartLS = localStorage.getItem("cart");
+    cartLS = JSON.parse(cartLS) || [];
+    cartLS.push(productClicked);
+    cartLS = JSON.stringify(cartLS);
+    localStorage.setItem("cart", cartLS);
+
+    // localStorage.clear(); // method   function tühjendada kogu localStorage
+    // let productsLS = localStorage.getItem("products");  // võtta võtme alusel väärtus
+    // let languageKey = localStorage.key(3); //  mitmendat järjekorras ma kasutusele võtta tahan 
+    // console.log(localStorage.length); // property    key --> value  mitu tk
+    // localStorage.removeItem("cart"); // saan eemaldada seda võti-väärtus paari
+    // localStorage.setItem("võti", "väärtus"); // saan võtme alusel lisada väärtust
+
+    // const midagi = JSON.parse("sõna") // võta jutumärgid maha
+    // const string = JSON.stringify(cartLS) // pane jutumärgid peale
+
+    // console.log("dasdasd");
   }
 
 
@@ -104,19 +131,22 @@ function Products() {
             {/* {activePage*20} / */}
       <div>Tooteid on {categoryProducts.length} tk</div>
 
-      <button onClick={sortAZ}>Sorteeri A-Z</button>
-      <button onClick={sortZA}>Sorteeri Z-A</button>
-      <button onClick={sortPriceAsc}>Sorteeri hind kasvavalt</button>
-      <button onClick={sortPriceDesc}>Sorteeri hind kahanevalt</button>
-      <button onClick={sortIdAsc}>Sorteeri vanemad enne</button>
-      <button onClick={sortIdDesc}>Sorteeri uuemad enne</button>
+      <div>
+        <button onClick={sortAZ}>Sorteeri A-Z</button>
+        <button onClick={sortZA}>Sorteeri Z-A</button>
+        <button onClick={sortPriceAsc}>Sorteeri hind kasvavalt</button>
+        <button onClick={sortPriceDesc}>Sorteeri hind kahanevalt</button>
+        <button onClick={sortIdAsc}>Sorteeri vanemad enne</button>
+        <button onClick={sortIdDesc}>Sorteeri uuemad enne</button>
+      </div>
 
       {products.map(element => 
           <div key={element.id}>
             <img src={element.image} alt="" />
             <div>{element.name}</div>
             <div>{element.price}</div>
-            <Button variant="success">Lisa ostukorvi</Button>
+  {/* element ---> {"id":7618,"image":"httpss-l225.webp","name":"Case For iPhone","price":5,"description":"Case For iPhone 14 13 12 11 Pro Max Clear Plating Shockproof Soft Silicone Cover","category":"luxury","active":true} */}
+            <Button onClick={() => addToCart(element)} variant="success">Lisa ostukorvi</Button>
           </div>
         )}
 
