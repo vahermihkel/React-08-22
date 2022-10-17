@@ -94,25 +94,35 @@ function Products() {
   }
 
   /* productClicked ---> {"id":7618,"image":"httpss-l225.webp","name":"Case For iPhone","price":5,"description":"Case For iPhone 14 13 12 11 Pro Max Clear Plating Shockproof Soft Silicone Cover","category":"luxury","active":true} */
+  // [{id:"",name""},{id:"",name""},{id:"",name""}]
+  // [{product: {id:"",name""}, quantity: 4}, {product: {id:"",name""}, quantity:5}, {product: {id:"",name""}, quantity: 6}]
   const addToCart = (productClicked) => {
     let cartLS = localStorage.getItem("cart");
     cartLS = JSON.parse(cartLS) || [];
-    cartLS.push(productClicked);
+    const index = cartLS.findIndex(element => element.product.id === productClicked.id);
+    if (index === -1) {//kui järjekorranumber on -1, siis järelikult teda pole olemas. kui on olemas, index: 0,1,2
+      cartLS.push({product: productClicked, quantity: 1});
+    } else {
+      // 1. tootedLS[j2rjekorraNumber] = ref.current.value;
+      // 2. const uusToode = {nimi: nimiRef.current.value, hind: hindRef.current.value};
+      // tootedLS[j2rjekorraNumber] = uusToode;
+      cartLS[index].quantity = cartLS[index].quantity + 1;
+    }
     cartLS = JSON.stringify(cartLS);
     localStorage.setItem("cart", cartLS);
-
-    // localStorage.clear(); // method   function tühjendada kogu localStorage
-    // let productsLS = localStorage.getItem("products");  // võtta võtme alusel väärtus
-    // let languageKey = localStorage.key(3); //  mitmendat järjekorras ma kasutusele võtta tahan 
-    // console.log(localStorage.length); // property    key --> value  mitu tk
-    // localStorage.removeItem("cart"); // saan eemaldada seda võti-väärtus paari
-    // localStorage.setItem("võti", "väärtus"); // saan võtme alusel lisada väärtust
-
-    // const midagi = JSON.parse("sõna") // võta jutumärgid maha
-    // const string = JSON.stringify(cartLS) // pane jutumärgid peale
-
-    // console.log("dasdasd");
   }
+
+  // localStorage.clear(); // method   function tühjendada kogu localStorage
+  // let productsLS = localStorage.getItem("products");  // võtta võtme alusel väärtus
+  // let languageKey = localStorage.key(3); //  mitmendat järjekorras ma kasutusele võtta tahan 
+  // console.log(localStorage.length); // property    key --> value  mitu tk
+  // localStorage.removeItem("cart"); // saan eemaldada seda võti-väärtus paari
+  // localStorage.setItem("võti", "väärtus"); // saan võtme alusel lisada väärtust
+
+  // const midagi = JSON.parse("sõna") // võta jutumärgid maha
+  // const string = JSON.stringify(cartLS) // pane jutumärgid peale
+
+  // console.log("dasdasd");
 
 
   return ( 

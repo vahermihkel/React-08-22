@@ -1,0 +1,46 @@
+.product {
+  display: flex; /* vasakult paremale */
+  justify-content: space-between; /* ruumijaotus vahele */
+  margin: 0 10%; /* ülevale-alla 0 eemaletõukamist, 
+                    vasakule-paremale 10% lehest */
+  border-bottom: 1px solid lightgray; /* piirjoon - 
+        paksus, liik, värvus */
+  padding: 10px 0;
+  /* px, 
+      %,  <--- parent elemendist
+     vh,  <--- minu ekraani kõrgusest protsent
+      vw  <--- minu ekraani laiusest protsent
+  margin: 10% <------ igas suunas 10% tõuka eemale
+  margin: 10vh   10px    üles-alla: 10vh, vasakule-paremale 10px
+          ülev par  alla  vas
+  margin: 10px 20px 30px 40px;
+  margin-top: 10px;
+  margin-right: 20px;
+  margin-bottom: 30px;
+  margin-left: 40px;
+      */
+}
+
+.name {
+  width: 100px;
+}
+
+.price {
+  width: 50px;
+}
+
+.image {
+  width: 100px;
+}
+
+.quantity {
+  width: 50px;
+}
+
+.sum {
+  width: 50px;
+}
+
+.button {
+
+}
