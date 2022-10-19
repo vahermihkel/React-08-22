@@ -151,7 +151,7 @@ function Products() {
       </div>
 
       {products.map(element => 
-          <div key={element.id}>
+          <div className="product" key={element.id}>
             <img src={element.image} alt="" />
             <div>{element.name}</div>
             <div>{element.price}</div>

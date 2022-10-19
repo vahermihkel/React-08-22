@@ -34,13 +34,35 @@
 }
 
 .quantity {
-  width: 50px;
+  display: flex;
+  justify-content: space-between;
+  width: 120px;
+  height: 37px;
+  padding: 2px;
+  border-radius: 17px;
+  border: 1px solid lightgray;
 }
 
 .sum {
-  width: 50px;
+  width: 80px;
 }
 
 .button {
+  width: 30px;
+  height: 30px;
+}
 
+.button:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+/* .button:active {
+  opacity: 0.9;
+  cursor: grab;
+} */
+
+.cart__bottom {
+  text-align: right;
+  margin-right: 10%;
 }
