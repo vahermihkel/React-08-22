@@ -46,6 +46,32 @@ function Cart() {
     console.log(cart);
   }
 
+  const pay = () => {
+
+    const data = {
+      "api_username": "92ddcfab96e34a5f",
+      "account_name": "EUR3D1",
+      "amount": calculateCartSum(),
+      "order_reference": Math.random() * 999999,
+      "nonce": "a9b7f7easda2123" + Math.random() * 999999 + new Date(),
+      "timestamp": new Date(),
+      "customer_url": "https://react-09-22-v.web.app"
+      }
+
+    fetch("https://igw-demo.every-pay.com/api/v4/payments/oneoff",{
+      "method": "POST",
+      "body": JSON.stringify(data),
+      "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Basic OTJkZGNmYWI5NmUzNGE1Zjo4Y2QxOWU5OWU5YzJjMjA4ZWU1NjNhYmY3ZDBlNGRhZA=="
+      }
+    }).then(res => res.json())
+    .then(json => window.location.href = json.payment_link );
+      // payment_link ---> rida 11 tagastuses
+      // json ise ongi tagastus
+      // window.location.href <------ JavaScipti sissekirjutatud viis kuidas URLi muuta
+  }
+
   return ( 
     <div>
       {cart.map((element, index) => 
@@ -71,13 +97,19 @@ function Cart() {
           <option key={element.NAME}>{element.NAME}</option>)}
       </select>
 
-      <button onClick={sendOrder}>Vormista tellimus</button>
+      <button onClick={pay}>Vormista tellimus</button>
     </div>
 
     </div> );
 }
 
 export default Cart;
+
+// MeetFrank
+// LinkedIn
+// Otse ettevõtete e-mailidele kirjutamine
+// Cvkeskus/cvonline/cv
+
 
 // Lõpuprojekt: Tehtud Reactis
 // 1. Ise välja mõeldud projekt
