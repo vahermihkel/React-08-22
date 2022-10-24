@@ -3,6 +3,7 @@
 // ja sealt Cart.module.css
 import styles from "../css/Cart.module.css";
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 function Cart() {
   const [cart, setCart] = useState( JSON.parse(localStorage.getItem("cart")) || [] );
@@ -41,10 +42,10 @@ function Cart() {
     return cartSum.toFixed(2);
   }
 
-  const sendOrder = () => {
-    console.log(pmRef.current.value);
-    console.log(cart);
-  }
+  // const sendOrder = () => {
+  //   console.log(pmRef.current.value);
+  //   console.log(cart);
+  // }
 
   const pay = () => {
 
@@ -88,6 +89,7 @@ function Cart() {
           <img className={styles.button} onClick={() => remove(index)} src={require("../images/remove.png")} alt="" />
         </div>)}
     
+    { cart.length > 0 && 
     <div className={styles.cart__bottom}>
       <div>Kokku: {calculateCartSum()} €</div>
 
@@ -98,7 +100,12 @@ function Cart() {
       </select>
 
       <button onClick={pay}>Vormista tellimus</button>
-    </div>
+    </div>}
+    { cart.length === 0 && 
+      <div>
+        <div>Ostukorvis pole tooteid.</div>
+        <div>Vajuta <Link to="/tooted">siia</Link>, et jätkata ostlemist.</div>
+      </div> }
 
     </div> );
 }
