@@ -1,41 +1,31 @@
 import productsFromFile from "../data/products.json";
 import Button from "react-bootstrap/Button";
 import Pagination from "react-bootstrap/Pagination";
-import { useState } from "react";
-
-// 1. teete kuskil koolitusel/Youtube/Udemys asja kaasa, jätate meelde ja kui on vaja kasutada, siis otsite üles
-// 2. kui teete kuskil suuremas projektis arendust, siis otsite samasugust funktsionaalsust kuskil teises failis
-// 3. otsida Google otsingu abiga kuidas seda teha
-// 4. teete ise peast
-
-// [{},{},{},{}] 301tk KÕIK productsFromFile
-// [{},{},{}] 240tk FILTREERITUD KUJUL categoryProducts
-// [{},{}] 20tk  MIDA NÄITAN KASUTAJALE products
+import { useEffect, useState } from "react";
+import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 
 function Products() {
-                            // 301tk/60tk/240tk/1tk - kuhu filtreeritakse ja mille seast lehekülgede kaupa liigutakse
-  const [categoryProducts, setCategoryProducts] = useState(productsFromFile.slice());
-  const [products, setProducts] = useState(productsFromFile.slice(0,20)); // 20tk - mida välja näidatakse lehekülje kaupa
-  // [{name: "Nobe", category: "car"}, {name: "BMW", category: "car"}, {name: "Tesla", category: "car"}]
-  //                                {name: "Nobe", category: "car"} =>   .category ------> "car"
-  //                                {name: "BMW", category: "car"} =>  .category ------> "car"
-  const categories = [...new Set(productsFromFile.map(element => element.category))];
-  // categories = ["car", "car", "car"];
+  const [categoryProducts, setCategoryProducts] = useState([]);
+  const [products, setProducts] = useState([]); 
+  const [categories, setCategories] = useState([]);
 
-  // KODUS ostukorvi lisamine täpselt nagu eesti keelses projektis
-
-  // const months = [
-  //   {kuu:'March', nrAastas: 3}, 
-  //   {kuu:'Jan', nrAastas: 1}, 
-  //   {kuu:'April', nrAastas: 4}, 
-  //   {kuu:'Feb', nrAastas: 2}, 
-  //   {kuu:'Dec', nrAastas: 12}
-  // ];
-  // months.sort( (first,second) => first.kuu.localeCompare(second.kuu) );
-  // console.log(months);
-  
-  // months.sort( (first,second) => first.nrAastas - second.nrAastas );
-  // console.log(months);
+  useEffect(() => { // kui lehele tulen ja koheselt (mitte nupuvajutusega) tehakse API päring (teise rakendusse)
+    const api = new WooCommerceRestApi({
+      url: "http://localhost/wordpress/",
+      consumerKey: "ck_bd51761123b321accde947d002fd6e4cc8691a5d",
+      consumerSecret: "cs_f1afebf685ceee83d3f8afa4588e2fddeb8ec5b1",
+      version: "wc/v3"
+    });
+    api.get("products", {
+      per_page: 20, // 20 products per page
+    })
+      .then((response) => {
+        // Successful request
+        setProducts(response.data);
+        setCategoryProducts(response.data);
+        setCategories([...new Set(response.data.map(element => element.categories[0].name))])
+      })
+  }, []);
 
   const [activePage, setActivePage] = useState(1);
   const pages = [];
@@ -80,8 +70,6 @@ function Products() {
   }
 
   const showByCategory = (categoryClicked) => {
-    // .filter()   .includes("mäe")   startsWith("M")  endsWith("y")    .length === 6  
-    // categoryClicked === element.category
     const result = productsFromFile.filter(element => element.category === categoryClicked);
     setCategoryProducts(result);
     setProducts(result.slice(0,20));
@@ -93,9 +81,6 @@ function Products() {
     setProducts(categoryProducts.slice(pageClicked*20-20,pageClicked*20));
   }
 
-  /* productClicked ---> {"id":7618,"image":"httpss-l225.webp","name":"Case For iPhone","price":5,"description":"Case For iPhone 14 13 12 11 Pro Max Clear Plating Shockproof Soft Silicone Cover","category":"luxury","active":true} */
-  // [{id:"",name""},{id:"",name""},{id:"",name""}]
-  // [{product: {id:"",name""}, quantity: 4}, {product: {id:"",name""}, quantity:5}, {product: {id:"",name""}, quantity: 6}]
   const addToCart = (productClicked) => {
     let cartLS = localStorage.getItem("cart");
     cartLS = JSON.parse(cartLS) || [];
@@ -103,27 +88,11 @@ function Products() {
     if (index === -1) {//kui järjekorranumber on -1, siis järelikult teda pole olemas. kui on olemas, index: 0,1,2
       cartLS.push({product: productClicked, quantity: 1});
     } else {
-      // 1. tootedLS[j2rjekorraNumber] = ref.current.value;
-      // 2. const uusToode = {nimi: nimiRef.current.value, hind: hindRef.current.value};
-      // tootedLS[j2rjekorraNumber] = uusToode;
       cartLS[index].quantity = cartLS[index].quantity + 1;
     }
     cartLS = JSON.stringify(cartLS);
     localStorage.setItem("cart", cartLS);
   }
-
-  // localStorage.clear(); // method   function tühjendada kogu localStorage
-  // let productsLS = localStorage.getItem("products");  // võtta võtme alusel väärtus
-  // let languageKey = localStorage.key(3); //  mitmendat järjekorras ma kasutusele võtta tahan 
-  // console.log(localStorage.length); // property    key --> value  mitu tk
-  // localStorage.removeItem("cart"); // saan eemaldada seda võti-väärtus paari
-  // localStorage.setItem("võti", "väärtus"); // saan võtme alusel lisada väärtust
-
-  // const midagi = JSON.parse("sõna") // võta jutumärgid maha
-  // const string = JSON.stringify(cartLS) // pane jutumärgid peale
-
-  // console.log("dasdasd");
-
 
   return ( 
     <div>
@@ -152,7 +121,7 @@ function Products() {
 
       {products.map(element => 
           <div className="product" key={element.id}>
-            <img src={element.image} alt="" />
+            { element.images[0] && <img src={element.images[0].src} alt="" />}
             <div>{element.name}</div>
             <div>{element.price}</div>
   {/* element ---> {"id":7618,"image":"httpss-l225.webp","name":"Case For iPhone","price":5,"description":"Case For iPhone 14 13 12 11 Pro Max Clear Plating Shockproof Soft Silicone Cover","category":"luxury","active":true} */}
