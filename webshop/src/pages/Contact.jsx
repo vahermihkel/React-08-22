@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import Map from '../components/Map';
+import emailjs from '@emailjs/browser';
 
 function Contact() {
   const [coordinaates, setCoordinates] = useState({lngLat: [59.4378, 24.7574], zoom: 11});
@@ -8,7 +9,19 @@ function Contact() {
   const messageRef = useRef();
 
   const sendEmail = () => {
-    // JÄRGMINE KORD
+
+    const templateParams = {
+      'to_name': "Webshopi haldajad",
+      "from_name": nameRef.current.value + ", tema e-mail: " + emailRef.current.value,
+      "message": messageRef.current.value
+    }
+    
+    emailjs.send('service_xum5oeq', 'template_cxiuwse', templateParams, 'Xbn0xj_4LjNugxYGl')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
   }
 
   return (<div>

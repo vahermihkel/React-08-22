@@ -62,20 +62,20 @@ function Cart() {
       return {product_id: element.product.id, quantity: element.quantity}
     });
     api.post("orders", {"line_items": woocommerceCart})
-      .then(res => console.log(res))
-      // .then(res => pay(res.data.id))
+      // .then(res => console.log(res))
+      .then(res => pay(res.data.id))
 
     // [  {product: {id: 13, name: "ads"}, quantity: 2}, ....  ]
     // [  {product_id: 13, quantity: 2}, {product_id: 56, quantity: 5}  ]
   }
 
-  const pay = () => {
+  const pay = (orderId) => {
 
     const data = {
       "api_username": "92ddcfab96e34a5f",
       "account_name": "EUR3D1",
       "amount": calculateCartSum(),
-      "order_reference": Math.random() * 999999,
+      "order_reference": orderId,
       "nonce": "a9b7f7easda2123" + Math.random() * 999999 + new Date(),
       "timestamp": new Date(),
       "customer_url": "https://react-09-22-v.web.app"
