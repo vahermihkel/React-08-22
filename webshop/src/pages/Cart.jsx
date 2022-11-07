@@ -52,6 +52,7 @@ function Cart() {
       consumerKey: "ck_bd51761123b321accde947d002fd6e4cc8691a5d",
       consumerSecret: "cs_f1afebf685ceee83d3f8afa4588e2fddeb8ec5b1",
       version: "wc/v3",
+      queryStringAuth: true,
       axiosConfig: {
         headers: {'Content-Type': 'application/json'},
       }
@@ -61,8 +62,8 @@ function Cart() {
       return {product_id: element.product.id, quantity: element.quantity}
     });
     api.post("orders", {"line_items": woocommerceCart})
-      // .then(res => console.log(res))
-      .then(res => pay(res.data.id))
+      .then(res => console.log(res))
+      // .then(res => pay(res.data.id))
 
     // [  {product: {id: 13, name: "ads"}, quantity: 2}, ....  ]
     // [  {product_id: 13, quantity: 2}, {product_id: 56, quantity: 5}  ]
