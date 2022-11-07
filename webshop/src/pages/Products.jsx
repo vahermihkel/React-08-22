@@ -1,12 +1,12 @@
-import productsFromFile from "../data/products.json";
 import Button from "react-bootstrap/Button";
 import Pagination from "react-bootstrap/Pagination";
 import { useEffect, useState } from "react";
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 
 function Products() {
-  const [categoryProducts, setCategoryProducts] = useState([]);
-  const [products, setProducts] = useState([]); 
+  const [dbProducts, setDbProducts] = useState([]);          // SIIN SEES on kõik andmebaasitooted 300tk
+  const [categoryProducts, setCategoryProducts] = useState([]); // SIIN SEES on ühe kategooria lõikes tooted 120tk
+  const [products, setProducts] = useState([]);   // SIIN SEES on ühe kategooria ühe lehekülje tooted 20tk
   const [categories, setCategories] = useState([]);
 
   useEffect(() => { // kui lehele tulen ja koheselt (mitte nupuvajutusega) tehakse API päring (teise rakendusse)
@@ -14,14 +14,17 @@ function Products() {
       url: "http://localhost/wordpress/",
       consumerKey: "ck_bd51761123b321accde947d002fd6e4cc8691a5d",
       consumerSecret: "cs_f1afebf685ceee83d3f8afa4588e2fddeb8ec5b1",
-      version: "wc/v3"
+      version: "wc/v3",
+      axiosConfig: {
+        headers: {'Content-Type': 'application/json'},
+      }
     });
     api.get("products", {
-      per_page: 20, // 20 products per page
+      per_page: 100, // 100 products per page
     })
       .then((response) => {
-        // Successful request
-        setProducts(response.data);
+        setDbProducts(response.data);
+        setProducts(response.data.slice(0,3));
         setCategoryProducts(response.data);
         setCategories([...new Set(response.data.map(element => element.categories[0].name))])
       })
@@ -29,56 +32,62 @@ function Products() {
 
   const [activePage, setActivePage] = useState(1);
   const pages = [];
-  for (let index = 0; index < categoryProducts.length/20; index++) {
+  for (let index = 0; index < categoryProducts.length/3; index++) {
     pages.push(index + 1);
   }
 
   const sortAZ = () => {
     categoryProducts.sort((a,b) => a.name.localeCompare(b.name));
-    setProducts(categoryProducts.slice(0,20));
+    setProducts(categoryProducts.slice(0,3));
     setActivePage(1);
   }
 
   const sortZA = () => {
     categoryProducts.sort((a,b) => b.name.localeCompare(a.name));
-    setProducts(categoryProducts.slice(0,20));
+    setProducts(categoryProducts.slice(0,3));
     setActivePage(1);
   }
 
   const sortPriceAsc = () => {
     categoryProducts.sort((a,b) => a.price - b.price);
-    setProducts(categoryProducts.slice(0,20));
+    setProducts(categoryProducts.slice(0,3));
     setActivePage(1);
   }  // a.price
 
   const sortPriceDesc = () => {
     categoryProducts.sort((a,b) => b.price - a.price);
-    setProducts(categoryProducts.slice(0,20));
+    setProducts(categoryProducts.slice(0,3));
     setActivePage(1);
   }
 
   const sortIdAsc = () => {
     categoryProducts.sort((a,b) => a.id - b.id);
-    setProducts(categoryProducts.slice(0,20));
+    setProducts(categoryProducts.slice(0,3));
     setActivePage(1);
   }
 
   const sortIdDesc = () => {
     categoryProducts.sort((a,b) => b.id - a.id);
-    setProducts(categoryProducts.slice(0,20));
+    setProducts(categoryProducts.slice(0,3));
     setActivePage(1);
   }
 
+  // ENNE: element.image
+  // WORDPRESSIS: element.images[0].src
+
+  // ENNE: element.category
+  // NÜÜD: element.categories[0].name
+
   const showByCategory = (categoryClicked) => {
-    const result = productsFromFile.filter(element => element.category === categoryClicked);
+    const result = dbProducts.filter(element => element.categories[0].name === categoryClicked);
     setCategoryProducts(result);
-    setProducts(result.slice(0,20));
+    setProducts(result.slice(0,3));
     setActivePage(1);
   }
 
   const changeActivePage = (pageClicked) => {
     setActivePage(pageClicked);
-    setProducts(categoryProducts.slice(pageClicked*20-20,pageClicked*20));
+    setProducts(categoryProducts.slice(pageClicked*3-3,pageClicked*3));
   }
 
   const addToCart = (productClicked) => {
